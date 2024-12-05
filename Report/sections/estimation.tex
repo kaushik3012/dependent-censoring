@@ -1,0 +1,33 @@
+\section{Estimation}
+In this section, we discuss parameter estimation for the joint parametric model of the survival time \(T\) and censoring time \(C\), as specified in equations (1)–(3). We assume an independent and identically distributed sample \(D = \{(y_i, \delta_i), i=1, \dots, n\}\) is available. The joint log-likelihood function for the parameter vector \(\alpha = (\theta, \theta_T, \theta_C)^T\) is given by
+\begin{align*}
+\ell(\alpha; D) = \sum_{i=1}^n \left[ \delta_i \log f_{T, \theta_T}(y_i) \big( 1 - h_{C|T, \theta} \{ F_{C, \theta_C}(y_i) | F_{T, \theta_T}(y_i) \} \big) \right] \\
++ \sum_{i=1}^n \left[ (1 - \delta_i) \log f_{C, \theta_C}(y_i) \big( 1 - h_{T|C, \theta} \{ F_{T, \theta_T}(y_i) | F_{C, \theta_C}(y_i) \} \big) \right].
+\end{align*}
+To estimate parameters, we use a maximum likelihood approach by maximizing this log-likelihood:
+\[
+\hat{\alpha} = (\hat{\theta}, \hat{\theta}_T, \hat{\theta}_C)^T = \arg \max_{\alpha \in \mathcal{A}} \ell(\alpha; D),
+\]
+where \(\mathcal{A} = \Theta \times \Theta_T \Theta_\times C\). For example, with lognormal margins for \(T\) and \(C\) and single-parameter copula families, this involves optimizing over five parameters. 
+
+To establish the asymptotic normality of \((\theta, \theta_T, \theta_C)\), we utilize White’s (1982)\cite{5805f73c-4dfa-385e-bd6d-68424fb9f5be} results, which provide sufficient conditions for the asymptotic normality of an estimator obtained by maximizing a criterion function, even if the model is misspecified. Define the parameter vector \(\alpha^* = (\theta^*, \theta_T^*, \theta_C^*)^\top\) as the one that minimizes the Kullback–Leibler information criterion \(E\{\log f_{Y, \delta}(Y, \delta) - \log f_{Y, \delta, \alpha}(Y, \delta)\}\). Let \(d = \dim(\theta) + \dim(\theta_T) + \dim(\theta_C)\). The following result, based on White (1982), holds. White’s regularity conditions (A1)–(A6) are assumptions about the true density \(f_{Y, \delta}(y, \delta)\), the assumed density \(f_{Y, \delta, \alpha}(y, \delta)\), and the density’s derivatives with respect to \(\alpha\) and \(y\).
+
+\subsection*{Theorem 5}
+(i) Under the regularity conditions (A1)–(A3) in White (1982)\cite{5805f73c-4dfa-385e-bd6d-68424fb9f5be},
+\[
+(\hat{\theta}, \hat{\theta}_T, \hat{\theta}_C) \to (\theta^*, \theta_T^*, \theta_C^*) \quad \text{in probability as } n \to \infty.
+\]
+
+(ii) Under the regularity conditions (A1)–(A6) in White (1982)\cite{5805f73c-4dfa-385e-bd6d-68424fb9f5be},
+\[
+\sqrt{n} \left((\hat{\theta}, \hat{\theta}_T, \hat{\theta}_C) - (\theta^*, \theta_T^*, \theta_C^*)\right) \to N(0, V) \quad \text{in distribution as } n \to \infty,
+\]
+where \(V = A(\alpha^*)^{-1} B(\alpha^*) A(\alpha^*)^{-1}\), with
+\[
+A(\alpha) = \left[ E \left( \frac{\partial^2}{\partial \alpha_j \partial \alpha_k} \log f_{Y, \delta, \alpha}(Y, \delta) \right) \right]_{j,k=1}^d,
+\]
+and
+\[
+B(\alpha) = \left[ E \left( \frac{\partial}{\partial \alpha_j} \log f_{Y, \delta, \alpha}(Y, \delta) \frac{\partial}{\partial \alpha_k} \log f_{Y, \delta, \alpha}(Y, \delta) \right) \right]_{j,k=1}^d.
+\]
+If the model is correctly specified, \(V\) simplifies to \(A(\alpha)^{-1}\), the inverse of the Fisher information matrix.

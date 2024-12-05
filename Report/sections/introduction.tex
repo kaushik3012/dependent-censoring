@@ -1,0 +1,103 @@
+\section{Introduction}
+
+\subsection{Censoring in Survival Analysis}
+\normalsize{
+Censoring is a key challenge in survival analysis, where it refers to incomplete information about the time of an event (often failure or death). It occurs when the exact event time is unknown for certain study subjects due to various reasons, such as subjects dropping out, the study ending before all events have occurred, or subjects surviving beyond the study period.\\
+Censoring complicates survival analysis because it biases the data, potentially leading to incorrect estimates of survival times if not properly accounted for. Standard statistical methods often assume complete data.
+
+Understanding and addressing censoring is crucial for drawing accurate conclusions, especially in fields like medicine, engineering reliability, and social sciences where survival analysis is heavily applied.
+}
+\subsubsection{Survival Time ($T$)}
+\normalsize {
+The duration of time from a defined starting point (like the beginning of a study, diagnosis, or a treatment) until the occurence of a particular event of interest (like death, relapse, failure of a device, etc.).
+}
+
+\subsubsection{Censoring Time ($C$)}
+\normalsize {
+Censoring time is the point in time at which the observation of a subject ends, without the event of interest having occurred. For example, if the study ends before the subject shows the symptoms of a certain disease, if there is a loss of follow-up with the subject, or if the subject voluntarily drops-out of the study. 
+}
+
+\subsection{Types of Censoring}
+\subsubsection{Right Censoring}
+This is the most common type. Here, we only know that the event time is greater than some observed time. For example, if a patient is still alive at the study’s end, we know only that their survival time exceeds the observed time.\\
+\textbf{Types of Right Censoring:}
+\begin{itemize}
+	\item \textbf{Type I censoring:} The study is set to end at a pre-defined time. If an individual has not experienced the event by this end time, their data is right-censored.
+	\item \textbf{Type II censoring:} The study ends when a certain number of events have occurred. Those who have not experienced the event by then are right-censored.
+	\item \textbf{Random censoring:} Censoring happens randomly due to factors like dropouts or lost-to-follow-up cases, unrelated to the study design.
+\end{itemize}
+
+\subsubsection{Left Censoring}
+The event of interest has already occurred before the observation period begins. For instance, if we’re studying the onset of a disease but only start observing individuals after they’re already sick, we don’t know the exact time they first contracted it.
+
+\subsubsection{Interval Censoring}
+The exact event time is unknown, but we know it occurred within a certain time interval. This is common in periodic follow-ups where we know the event happened between two check-ins but not the exact moment.
+
+\subsection{Existing Solutions}
+The existing solutions for this problem has several challenges and limitations in modeling the joint distribution of  $T$  (survival time) and  $C$(censoring time) under right-censoring in survival analysis.
+Some of the issues are: Non-Identifiability in a Non-Parametric Setting\cite{3}, Dependence on Known Copulas with Fixed Association Parameters\cite{4}, Challenges with Estimating the Copula Parameter\cite{2} and Strict Assumptions Required for Identifiability of Archimedean Copulas\cite{1}.
+
+\subsection{Objective}
+We demonstrate that assuming a fully specified copula is not essential for identifying the joint distribution of  $T$  and  $C$. By modeling the marginal distributions of  $T$  and  $C$, along with the copula function, parametrically, we prove that under certain conditions, the joint model becomes identifiable. Notably, this approach ensures the identifiability of the copula’s association parameter, marking a significant advancement in employing copulas within survival analysis.
+
+\section{Proposed Model}
+Let  $T$  denote the survival time and  $C$  the censoring time. Due to random right censoring, we observe  $Y = \min(T, C)$  and an indicator  $\Delta = I(T \leq C)$. We assume potential dependence between  $T$  and  $C$ , which we model using a copula. Throughout this framework\cite{10.1093/biomet/asac067}, we take both  $T$  and  $C$  to be non-negative, with continuous marginal distributions  $F_T$  and  $F_C$  belonging to parametric families, specified as:
+\begin{equation}
+	F_T \in \{ F_{T, \theta_T} : \theta_T \in \Theta_T \}, \quad F_C \in \{ F_{C, \theta_C} : \theta_C \in \Theta_C \},
+\end{equation}
+where  $\Theta_T$  and  $\Theta_C$  denote the parameter spaces. We denote the densities of  $T$  and  $C$  as  $f_T$  and  $f_C$ , or  $f_{T, \theta_T}$  and  $f_{C, \theta_C}$  in the parametric context. The joint distribution  $F_{T, C}$  of  $(T, C)$  is then modeled through a copula-based approach. \\
+A copula  $C : [0,1] \times [0,1] \to [0,1]$  with uniform margins enables us to represent the dependence structure, as established by Sklar (1959)\cite{sklar}. Specifically, given the continuity of  $F_T$  and  $F_C$ , there exists a unique copula  $C$  satisfying:
+\begin{equation}
+	F_{T,C}(t, c) = C(F_T(t), F_C(c)),
+\end{equation}
+
+for any  $t, c \geq 0$ . We further assume that the copula itself is parametrically modeled, such that: 
+\begin{equation}
+	C \in \{ C_\theta : \theta \in \Theta \},
+\end{equation}
+ for some parameter space  $\Theta$.
+
+\subsubsection*{Joint and Conditional Densities}
+
+Differentiating  $F_{T, C}(t, c) = C(F_T(t), F_C(c))$  yields the joint density of  $(T, C)$  as:
+$$f_{T, C}(t, c) = c(F_T(t), F_C(c)) f_T(t) f_C(c),$$
+where  $c$  represents the copula density. Our objective is to determine the conditional distributions of  $T$  given  $C$  and  $C$  given  $T$.
+
+From the joint density expression, we obtain the conditional densities:
+
+$f_{T | C}(t | c) = c(F_T(t), F_C(c)) f_T(t),$
+
+$f_{C | T}(c | t) = c(F_T(t), F_C(c)) f_C(c).$
+
+
+The conditional distribution function of  T  given  C = c  can be derived as follows:
+\begin{align*}
+F_{T|C}(t \mid c) &= \int_0^t c\{F_T(t^*), F_C(c)\} f_T(t^*) \, dt^* \\
+&= \int_0^t \frac{\partial^2}{\partial u \partial v} C(u, v) \bigg|_{u = F_T(t^*), v = F_C(c)} \frac{d F_T(t)}{dt} \bigg|_{t = t^*} \, dt^* \\
+&= \frac{\partial}{\partial v} C(u, v) \bigg|_{u = F_T(t), v = F_C(c)} = h_{T|C}\{F_T(t) \mid F_C(c)\}.
+\end{align*}
+
+where $h_{T|C}$ is defined based on the partial derivative of the copula with respect to  $u$  at  $u = F_T(t)$  and  $v = F_C(c)$. Similarly, we have:
+$$F_{C|T}(c | t) = h_{C|T}\{F_C(c) | F_T(t)\}.$$
+
+
+\subsubsection*{Marginal Distribution of  $Y = \min(T, C)$}
+
+To derive the marginal distribution of  $Y$, we note:
+$$F_Y(y) = 1 - \Pr(Y > y) = 1 - \Pr(T > y, C > y).$$
+
+Expanding this, we get:
+$$F_Y(y) = F_C(y) + F_T(y) - C\{F_T(y), F_C(y)\}.$$
+
+\subsubsection*{Joint Mixed Density of  $(Y, \Delta)$}
+
+Finally, we derive the joint density  $f_{Y, \Delta}$  by observing:
+\begin{align*}
+F_{Y, \Delta}(y, 1) &= \operatorname{pr}(T \leq y, T \leq C) = \int_0^y \operatorname{pr}(C \geq t \mid T = t) f_T(t) \, dt \\
+&= \int_0^y \left[1 - h_{C|T}\{F_C(t) \mid F_T(t)\}\right] f_T(t) \, dt,
+\end{align*}
+This results in:
+$$f_{Y, \Delta}(y, 1) = \left[1 - h_{C|T}\{F_C(y) | F_T(y)\}\right] f_T(y).$$
+Similarly, we have:
+$$f_{Y, \Delta}(y, 0) = \left[1 - h_{T|C}\{F_T(y) | F_C(y)\}\right] f_C(y).$$
+This provides the foundation for modeling dependent censoring with parametric assumptions on both the marginals and the copula structure.

@@ -1,0 +1,290 @@
+\section{Identifiability}
+
+We begin by establishing sufficient conditions for model identifiability. "Identifiability" means that the parameters \((\theta, \theta_T, \theta_C) \in \Theta \times \Theta_T \times \Theta_C\) uniquely determine the density of the observable variables \((Y, \Delta)\). Specifically, if \(f_{Y, \Delta; \alpha_1} \equiv f_{Y, \Delta; \alpha_2}\), then \(\alpha_1 = \alpha_2\), where \(\alpha_j = (\theta_j, \theta_{Tj}, \theta_{Cj})^T\) for \(j = 1, 2\).
+
+\subsection*{Theorem 1}
+ Suppose the following conditions hold:
+
+1. For any \(\theta_{T1}, \theta_{T2} \in \Theta_T\) and \(\theta_{C1}, \theta_{C2} \in \Theta_C\), the four equivalences below must be satisfied:
+   \[
+   \lim_{t \to 0} \frac{f_{T, \theta_{T1}}(t)}{f_{T, \theta_{T2}}(t)} = 1 \Rightarrow \theta_{T1} = \theta_{T2}, \quad
+   \lim_{t \to 0} \frac{f_{C, \theta_{C1}}(t)}{f_{C, \theta_{C2}}(t)} = 1 \Rightarrow \theta_{C1} = \theta_{C2},
+   \]
+   \[
+   \lim_{t \to \infty} \frac{f_{T, \theta_{T1}}(t)}{f_{T, \theta_{T2}}(t)} = 1 \Rightarrow \theta_{T1} = \theta_{T2}, \quad
+   \lim_{t \to \infty} \frac{f_{C, \theta_{C1}}(t)}{f_{C, \theta_{C2}}(t)} = 1 \Rightarrow \theta_{C1} = \theta_{C2}.
+   \]
+
+2. The parameter space \(\Theta \times \Theta_T \times \Theta_C\) satisfies:
+   \[
+    \lim_{t \to 0} h_{T|C, \theta}(u_t | v_t) = 0 \quad {or} \quad \lim_{t \to \infty} h_{T|C, \theta}(u_t | v_t) = 0, \quad \forall (\theta, \theta_T, \theta_C) \in \Theta \times \Theta_T \times \Theta_C,
+   \]
+   and similarly for \(h_{C|T, \theta}(v_t | u_t)\), where \(u_t = F_{T, \theta_T}(t)\) and \(v_t = F_{C, \theta_C}(t)\).
+
+Under these conditions, the model specified in (1)–(3) is identifiable.
+
+Theorem 1's first condition (i) pertains solely to the marginal distributions, whereas condition (ii) involves both the margins and the copula family. Condition (i) holds for a broad class of parametric families for the marginal densities \(f_T\) and \(f_C\), as demonstrated in the next theorem. For other families not explicitly covered here, condition (i) can also be verified, but we focus on the primary parametric families commonly used in survival analysis. Condition (i) requires the equivalence to hold for limits as \(t\) approaches both \(0\) and \(\infty\), ensuring that when either limit is equal to \(1\), the parameter vectors must be identical.
+
+\subsubsection*{Proof}
+We know that 
+\begin{align*}
+	f_{Y, \Delta} (t,1) &= \{1-F_{C|T} (t|t)\}f_T(t) \\
+						&= [1-h_{C|T} \{F_C(t)|F_T(t)\}]f_T(t).
+\end{align*}
+From condition (ii), we know \( \lim_{t \to a} h_{C|T} \{F_C(t)|F_T(t)\} = 0 \) for \(a=0\) or \(a=\infty \).
+
+Hence, \( \lim_{t \to a} f_{Y, \Delta}(t,1) = \lim_{t \to a} f_T(t) \)
+
+Suppose now that \( f_{Y, Delta, \alpha_1} (t,1) = f_{Y, Delta, \alpha_2} (t,1) \forall t \)
+\[
+ \implies 1 = \lim_{t \to a} \frac{f_{Y, \Delta, \alpha_1} (t, 1)}{f_{Y, \Delta, \alpha_2} (t,1)} = \lim_{t \to a} \frac{f_{T, \theta_{T_1}} (t)}{f_{T, \theta_{T_2}} (t)}
+ \]
+ 
+ Using condition (i), we get, \( \theta_{T_1} = \theta_{T_2}\).\\
+ Similarly, we can show for \( \theta_{C_1} = \theta_{C_2}\).\\
+ Finally, to show that \( \theta_1 = \theta_2 \), notice \\
+ \( F_{Y, \alpha_j} (t) = F_{T, \theta_{T_1}} + F_{C, \theta_{C_1}} - C_\theta \{F_{T, \theta_{T_1}}(t), F_{C, \theta_{C_1}}(t) \}
+ \) and \( F_{Y, \alpha_1}(t) = F_{Y, \alpha_2}(t) \text{ } \forall t \).\\
+\(\therefore \text{The copula is unique} \implies \theta_1 = \theta_2 .\)
+
+\subsection*{Theorem 2}
+Condition (i) of Theorem 1 is satisfied for the families of lognormal, log-Student-t, Weibull, log-logistic, exponential, gamma, and truncated normal densities.
+
+\subsubsection*{Proof}
+
+\textbf{Lognormal Marginals}\\
+First, consider the lognormal density for \( T \), which depends on \( \theta_T = (\mu, \sigma) \):
+\[
+\lim_{t \to 0} \frac{f_{T, \mu_1, \sigma_1}(t)}{f_{T, \mu_2, \sigma_2}(t)} = \lim_{t \to 0} \frac{\frac{1}{t \sigma_1} \phi\left(\frac{\log t - \mu_1}{\sigma_1}\right)}{\frac{1}{t \sigma_2} \phi\left(\frac{\log t - \mu_2}{\sigma_2}\right)} = \lim_{t' \to -\infty} \frac{\phi\left(\frac{t' - \mu_1}{\sigma_1}\right)}{\phi\left(\frac{t' - \mu_2}{\sigma_2}\right)}.
+\]
+It is straightforward to verify that this limit is equal to \(1\) only when \(\mu_1 = \mu_2\) and \(\sigma_1 = \sigma_2\). The same result holds for the limit as \(t \to \infty\).\\
+\textbf{Log-Student-\(t\) Marginals}\\
+Similarly, for the log-Student-\( t \) density, we have
+\[
+\lim_{t \to 0, \infty} \frac{f_{T, \nu_1, \mu_1, \sigma_1}(t)}{f_{T, \nu_2, \mu_2, \sigma_2}(t)} = \frac{c_{\nu_1, \sigma_1}}{c_{\nu_2, \sigma_2}} \lim_{t \to 0, \infty} \frac{\left(1 + \frac{1}{\nu_1} \left(\frac{\log t - \mu_1}{\sigma_1}\right)^2\right)^{-(\nu_1 + 1)/2}}{\left(1 + \frac{1}{\nu_2} \left(\frac{\log t - \mu_2}{\sigma_2}\right)^2\right)^{-(\nu_2 + 1)/2}},
+\]
+where \( c_{\nu, \sigma} = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sigma \sqrt{\nu \pi} \, \Gamma\left(\frac{\nu}{2}\right)} \), with \(\Gamma\) denoting the gamma function. It is easy to see that this limit is equal to \(1\) if and only if \((\nu_1, \mu_1, \sigma_1) = (\nu_2, \mu_2, \sigma_2)\).\\
+\textbf{Weibull Marginals}\\
+The same conclusion holds for the Weibull density, where
+
+\[
+\lim_{t \to 0, \infty} \frac{f_{T, \lambda_1, \rho_1}(t)}{f_{T, \lambda_2, \rho_2}(t)} = \frac{\lambda_1 \rho_1}{\lambda_2 \rho_2} \lim_{t \to 0, \infty} \frac{t^{\rho_1 - 1} \exp(-\lambda_1 t^{\rho_1})}{t^{\rho_2 - 1} \exp(-\lambda_2 t^{\rho_2})},
+\]
+
+which is equal to \(1\) only if \(\rho_1 = \rho_2\) and \(\lambda_1 = \lambda_2\).\\
+\textbf{Log-logistic Marginals}\\
+For the log-logistic density, we have the limit
+\[
+\lim_{t \to 0, \infty} \frac{f_{T, \lambda_1, \kappa_1}(t)}{f_{T, \lambda_2, \kappa_2}(t)} = \frac{\kappa_1 \lambda_1^{\kappa_1}}{\kappa_2 \lambda_2^{\kappa_2}} \lim_{t \to 0, \infty} \frac{t^{\kappa_1 - 1} \left(1 + (\lambda_2 t)^{\kappa_2}\right)^{2}}{t^{\kappa_2 - 1}  \left(1 + (\lambda_1 t)^{\kappa_1}\right)^{2}}.
+\]
+Again, this limit equals \(1\) if and only if \(\kappa_1 = \kappa_2\) and \(\lambda_1 = \lambda_2\). \\
+\textbf{Exponential Marginals}\\
+First, we consider the exponential density for  $T$ , which depends on the parameter  $\theta_T = \lambda$:
+$$f_T(t) = \lambda e^{-\lambda t}, \quad t \geq 0.$$
+The limit of the ratio of the exponential densities for two parameters  $\lambda_1$  and  $\lambda_2$  as  $t \to 0$  and  $t \to \infty$  is given by:
+\begin{align*}
+	\lim_{t \to 0} \frac{f_{T, \lambda_1}(t)}{f_{T, \lambda_2}(t)} = \lim_{t \to 0} \frac{\lambda_1 e^{-\lambda_1 t}}{\lambda_2 e^{-\lambda_2 t}} = \frac{\lambda_1}{\lambda_2}
+\end{align*}
+\begin{equation*}
+	= 1 \iff \lambda_1 = \lambda_2
+\end{equation*}
+Similarly, as  $t \to \infty$ :
+\begin{equation*}
+\lim_{t \to \infty} \frac{f_{T, \lambda_1}(t)}{f_{T, \lambda_2}(t)} = \lim_{t \to \infty} \frac{\lambda_1 e^{-\lambda_1 t}}{\lambda_2 e^{-\lambda_2 t}} = 0 \text{ or } \infty 
+\end{equation*}
+depending on \(\lambda_1 \text{ and } \lambda_2.\)
+
+These limits indicate that for the exponential density, the ratio is equal to  1  only if  $\lambda_1 = \lambda_2$ .\\
+Similarly, we can prove that ratio is 1 iff parameters are equal in the \(C\) case.\\ 
+\textbf{Gamma Marginals}\\
+First, we consider the Gamma density for  T , which depends on the parameters  $\theta_T = (\alpha, \beta)$ :
+$$f_T(t; \alpha, \beta) = \frac{\beta^\alpha t^{\alpha - 1} e^{-\beta t}}{\Gamma(\alpha)}, \quad t \geq 0,$$
+where $\alpha > 0$  is the shape parameter,  $\beta > 0$  is the rate parameter, and  $\Gamma(\alpha)$ is the gamma function.
+
+The limit of the ratio of the Gamma densities for two sets of parameters  $(\alpha_1, \beta_1)$  and  $(\alpha_2, \beta_2)$  as  $t \to 0$ and  $t \to \infty$ is given by:
+
+
+$$\lim_{t \to 0} \frac{f_{T, \alpha_1, \beta_1}(t)}{f_{T, \alpha_2, \beta_2}(t)} = \lim_{t \to 0} \frac{\frac{\beta_1^{\alpha_1} t^{\alpha_1 - 1} e^{-\beta_1 t}}{\Gamma(\alpha_1)}}{\frac{\beta_2^{\alpha_2} t^{\alpha_2 - 1} e^{-\beta_2 t}}{\Gamma(\alpha_2)}} = \frac{\beta_1^{\alpha_1} \Gamma(\alpha_2)}{\beta_2^{\alpha_2} \Gamma(\alpha_1)} \lim_{t \to 0} \frac{t^{\alpha_1 - 1}}{t^{\alpha_2 - 1}}.$$
+
+
+As  $t \to 0$ :
+\begin{itemize}
+	\item If  $\alpha_1 = 1$  and  $\alpha_2 > 1$ , the limit tends to  0.
+	\item If  $\alpha_1 > 1$  and  $\alpha_2 = 1$, the limit tends to  $\infty$.
+	\item If  $\alpha_1 = \alpha_2$ , the limit approaches  $\frac{\beta_1^{\alpha_1} \Gamma(\alpha_2)}{\beta_2^{\alpha_2} \Gamma(\alpha_1)}$.
+\end{itemize}
+
+Next, as $ t \to \infty$:
+$$\lim_{t \to \infty} \frac{f_{T, \alpha_1, \beta_1}(t)}{f_{T, \alpha_2, \beta_2}(t)} = \lim_{t \to \infty} \frac{\frac{\beta_1^{\alpha_1} t^{\alpha_1 - 1} e^{-\beta_1 t}}{\Gamma(\alpha_1)}}{\frac{\beta_2^{\alpha_2} t^{\alpha_2 - 1} e^{-\beta_2 t}}{\Gamma(\alpha_2)}} = 0.$$
+
+
+Thus, we find that these limits equal to  1  only if  $\alpha_1 = \alpha_2$  and  $\beta_1 = \beta_2$.\\
+We will reach the same conclusion with the $C$ marginal case.\\
+\textbf{Truncated Normal Marginals}\\
+Consider the truncated normal density for $T$ , which depends on the parameters  $\theta_T = (\mu, \sigma, a, b)$:
+\begin{equation*}
+	f_T(t; \mu, \sigma, a, b) = \frac{\phi\left(\frac{t - \mu}{\sigma}\right)}{\sigma \left[\Phi\left(\frac{b - \mu}{\sigma}\right) - \Phi\left(\frac{a - \mu}{\sigma}\right)\right]}, \quad a < t < b,
+\end{equation*}
+where  $\phi$ is the probability density function (pdf) of the standard normal distribution, and  $\Phi$  is the cumulative distribution function (cdf) of the standard normal distribution.\\
+Since $T$ and $C$ are measurements of time, their support $= [0, \infty)$. Hence, we can consider a=0 and b=$\infty$ in the truncated normal marginals. Thus, the density depends only on $\mu$ and $\sigma$ in this case.
+\begin{equation*}
+	f_T(t; \mu, \sigma) = \frac{\phi\left(\frac{t - \mu}{\sigma}\right)}{\sigma \left[1 - \Phi\left(\frac{- \mu}{\sigma}\right)\right]}, \quad 0 < t < \infty,
+\end{equation*}
+
+The limit of the ratio of the Truncated-normal densities for the two sets of parameters $(\mu_1, \sigma_1)$ and $(\mu_2, \sigma_2)$ as $t \to 0 $ and $t \to \infty$ is given by:
+\begin{align*}
+\lim_{t \to 0} \frac{f_{T, \mu_1, \sigma_1}(t)}{f_{T, \mu_2, \sigma_2}(t)} &= \lim_{t \to 0} \frac{\sigma_2}{\sigma_1} \frac{\Phi(\frac{\mu_1}{\sigma_1})}{\Phi(\frac{\mu_2}{\sigma_2})} \frac{\phi(\frac{t-\mu_1}{\sigma_1})}{\phi(\frac{t-\mu_2}{\sigma_2})}\\
+&= \frac{\sigma_2}{\sigma_1} \frac{\Phi(\frac{\mu_1}{\sigma_1})}{\Phi(\frac{\mu_2}{\sigma_2})} \exp \left(\frac{-1}{2} \left(\frac{\mu_1^2}{\sigma_1^2} - \frac{\mu_2^2}{\sigma_2^2}\right)\right)\\
+&= 1 \iff \frac{\mu_1}{\sigma_1} = \frac{\mu_2}{\sigma_2} \text{ and } \sigma_1 = \sigma_2\\
+&\iff \mu_1 = \mu_2
+\end{align*}
+Similarly, we can prove that ratio is 1 if parameters are equal in the C case.\\
+Therefore, condition (i) is satisfied for each of these densities.
+
+\subsection*{Classes of Copula}
+\subsubsection*{Archimedean Copula}
+\begin{equation}
+	C(u, v) = \psi^{[-1]} \{\psi(u) + \psi(v) \}
+\end{equation}
+where $\psi$ is a generator, that is, $\psi : [0,1] \to [0, \infty)$ is a continuous, strictly decreasing and convex function such that $\psi(1) = 0$. Here, $\psi^{[-1]}$ is the pseudo-inverse of $\psi$, i.e., $\psi^{[-1]}(t) = \psi^{-1}(t)$ if $0 \leq t \leq 1$ and $\psi^{[-1]}(t) = 0$ if $t \geq \psi(0)$.
+Following are some important families of archimedean copula:
+\begin{itemize}
+	\item Frank Family: \( \psi_\theta (u) = -\log \left[ \frac{e^{-\theta u} - 1}{e^{-\theta} - 1} \right]\),  \( \theta \in \mathbb{R} \backslash \{0\}\)
+	\item Clayton Family: \( \psi_\theta (u) = \frac{u^{-\theta} - 1}{\theta} \text{ with } \theta \in [-1, \infty) \backslash \{0\} \)
+	\item Gumbel Family: \( \psi_\theta (u) = \{ -\log (u) \}^\theta \text{ with } \theta \in [1, \infty)\)
+\end{itemize}
+
+Differentiation of (4) gives
+\[
+h_{T|C}(u|v) = \frac{\psi'(v)}{\psi' \left[ \psi^{-1}\{\psi(u) + \psi(v)\}\right]} \quad \text{and} \quad h_{C|T}(v|u) = \frac{\psi'(u)}{\psi' \left[ \psi^{-1}\{\psi(u) + \psi(v)\}\right]} 
+\]
+for \( 0 < u,v < 1 \), provided the derivatives and inverses in the formula exist.
+
+\subsubsection*{Lemma 1}
+Suppose the generator \( \psi \) is differentiable on \( (0, 1) \). If \( \lim_{v \to 1} \psi'(v) \in (-\infty, 0) \), then
+\(
+\lim_{t \to \infty} h_{T|C,\theta}\{F_{T,\theta T}(t) | F_{C,\theta C}(t)\} = 1.
+\)\\
+\textbf{Proof of Lemma 1:}\\
+Let $u_t = F_{T, \theta_T} (t)$ and $ v_t = F_{C, \theta_C} (t)$. Note that 
+\begin{align*}
+	\psi(1) =0, \lim_{t \to 0} \psi^{-1}(t) = 1 \text{ and } \lim_{u \to 1} \psi'(u) = c \in (-\infty, 0)\\
+\implies \lim_{t \to \infty} h_{T|C, \theta} (u_t | v_t) = \lim_{t \to \infty} \frac{\psi'(v_t)}{\psi' \left[ \psi^{-1}\{\psi(u_t) + \psi(v_t)\}\right]} = \frac{c}{c} = 1
+\end{align*}
+
+\subsubsection*{Gaussian Copula}
+\begin{equation*}
+C_\theta (u, v) = \Phi_\theta \{ \Phi^{-1} (u), \Phi^{-1} (v) \}
+\end{equation*}
+where,\\
+$\Phi$: CDF of Standard Normal distribution\\
+$\Phi_\theta$: CDF of Bivariate Standard Normal distribution with correlation $\theta$
+
+\subsection*{Theorem 3}
+Condition (ii) of Theorem 1 is satisfied by the following cases:
+
+\begin{enumerate}
+    \item The Frank copula, regardless of the marginal distributions and the parameter space.
+    \item The Gumbel copula, if 
+    \[
+    \lim_{t \to 0} \frac{\log F_{T, \theta_T}(t)}{\log F_{C, \theta_C}(t)} \in (0, \infty) \quad \text{for all} \quad (\theta_T, \theta_C) \in \Theta_T \times \Theta_C.
+    \]
+    \item The Gaussian copula, if either:
+    \[
+        \lim_{t \to 0} A_{\theta, F_{T, \theta_T}, F_{C, \theta_C}}(t) = -\infty \quad \forall (\theta, \theta_T, \theta_C) \in \Theta \times \Theta_T \times \Theta_C,
+        \]
+        or 
+        \[
+        \lim_{t \to \infty} A_{\theta, F_{T, \theta_T}, F_{C, \theta_C}}(t) = -\infty \quad \forall (\theta, \theta_T, \theta_C) \in \Theta \times \Theta_T \times \Theta_C.
+        \]
+    The same conditions apply for \( A_{\theta, F_{C, \theta_C}, F_{T, \theta_T}} \), where \\ \( A_{\theta, F_1, F_2}(t) = \Phi^{-1} \{F_1(t)\} - \theta \Phi^{-1} \{F_2(t)\}. \)
+\end{enumerate}
+
+\subsubsection*{Proof} 
+We begin by examining the Frank copula. Simple calculations reveal that
+\[
+\lim_{u \to 1} \psi'(u) = \frac{\theta e^{-\theta}}{e^{-\theta} - 1} < 0 \quad \text{for} \quad \theta \neq 0.
+\]
+Therefore, by applying Lemma 1, we conclude that 
+\[
+\lim_{t \to \infty} h_{T|C}\{F_T(t) | F_C(t)\} = 1.
+\]
+This indicates that the first part of condition (ii) can only be fulfilled if 
+\[
+\lim_{t \to 0} h_{T|C}\{F_T(t) | F_C(t)\} = 0.
+\]
+Some calculations yield:
+\begin{align*}
+\lim_{t \to 0} h_{T|C}\{F_T(t) | F_C(t)\} &= \lim_{t \to 0} \frac{\psi'(F_C(t))}{ \{\psi^{-1}\{\psi(F_T(t)) + \psi(F_C(t))\}\}}\\
+ &= \frac{\exp\{-\theta F_C(t)\} \left[ \exp\{-\theta F_T(t)\} - 1\right]}{[\exp\{-\theta F_C(t)\} - 1 ]\cdot \left[\exp\{-\theta F_T(t)\} - 1 \right] + e^{-\theta} - 1} = 0 \quad \\
+ \text{for} \quad \theta \neq 0.
+\end{align*}
+Thus, the first part of condition (ii) is satisfied. A similar analysis can demonstrate that the second part is also satisfied.
+
+For the Gumbel family, we observe that 
+\[
+\lim_{u \to 1} \psi'(u) = 0,
+\]
+indicating that Lemma 1 does not apply. Therefore, we analyze the limits as \(t\) approaches 0 and \(\infty\):
+\begin{align*}
+\lim_{t \to 0, \infty} h_{T|C}\{F_T(t) | F_C(t)\} = \lim_{t \to 0, \infty} \left[1 + (-\log F_C(t))^{-\theta} (-\log F_T(t))^{\theta}\right]^{-1 + \frac{1}{\theta}} \\
+\times \lim_{t \to 0, \infty} \exp\left\{- \left[ (-\log F_T(t))^{\theta} + (-\log F_C(t))^{\theta} \right]^{ \frac{1}{\theta}} - \log F_C(t)\right\}.
+\end{align*}
+Refer to Aas et al.(2009)\cite{AAS2009182} for the formula of \(h_{T|C}\{F_T(t) | F_C(t)\}\) for the Gumbel family. Assuming that \(\frac{\log F_T(t)}{\log F_C(t)} \to c\) for some \(0 < c < \infty\) as \(t \to 0\), the exponential term tends to 0 as \(t\) approaches 0 and tends to 1 as \(t\) approaches infinity. The factor in front of this exponential term converges to a constant within the interval \([0, 1]\), depending on the limit of \(\frac{\log F_T(t)}{\log F_C(t)}\) as \(t\) tends to 0 or infinity. This indicates that the product of the two limits equals 0 as \(t\) approaches 0, while the limit can be zero or strictly positive as \(t\) approaches infinity, depending on the limit of \(\frac{\log F_T(t)}{\log F_C(t)}\) as \(t\) increases without bound.
+
+Now, we turn to the Gaussian copula. Note that
+\begin{align*}
+Pr \left[ \Phi^{-1}\{F_T(T)\} \leq t, \Phi^{-1}\{F_C(C)\} \leq c \right] &= \Pr\left(T \leq F_T^{-1}(\Phi(t)), C \leq F_C^{-1}(\Phi(c))\right)\\
+ &= \Phi_{\theta}(t, c)
+\end{align*}
+, where \(\Phi_{\theta}\) is the bivariate normal distribution with correlation parameter \(\theta\). Consequently, 
+\[
+\Phi^{-1}\{F_T(T)\} | \Phi^{-1}\{F_C(C)\} \sim N\left(\theta \Phi^{-1}\{F_C(C)\}, 1 - \theta^2\right).
+\]
+This allows us to write, omitting the parameters \(\theta\), \(\theta_T\), and \(\theta_C\) for simplicity,
+\begin{align*}
+	h_{T|C}\{F_T(t) | F_C(t)\} = F_{T|C}(t | t) = Pr \left[ \Phi^{-1}\{F_T(T)\} \leq \Phi^{-1}\{F_T(t)\} | \Phi^{-1}\{F_C(C)\} = \Phi^{-1}\{F_C(t)\} \right]\\
+= \Phi \left[ \frac{\Phi^{-1}\{F_T(t)\} - \theta \Phi^{-1}\{F_C(t)\}}{\sqrt{1 - \theta^2}} \right] = \frac{A_{\theta, F_T, F_C}(t)}{\sqrt{1 - \theta^2}},
+\end{align*}
+
+where 
+\[
+A_{\theta, F_T, F_C}(t) = \Phi^{-1}\{F_T(t)\} - \theta \Phi^{-1}\{F_C(t)\}.
+\]
+Since \(A_{\theta, F_T, F_C}(t) \to -\infty\) as \(t \to 0\) or \(t \to \infty\), it follows that \(h_{T|C}\{F_T(t) | F_C(t)\} \to 0\) as \(t\) approaches either 0 or infinity. This verifies the first part of condition (ii). A similar approach can be used to prove the second part.
+
+\subsection*{Theorem 4}
+Assume that condition (i) of Theorem 1 is met, and that the parameter spaces \( \Theta_T \times \Theta_C \) satisfy \(\lim_{t \to 0} \frac{F_{T, \theta_T}(t)}{F_{C, \theta_C}(t)}\) is either \(0\) or \(+\infty\) for all \(\theta_T \in \Theta_T\) and \(\theta_C \in \Theta_C\). Additionally, suppose the copula \( C_{\theta} \) is a Clayton copula with \(\theta > 0\). Then, the model defined in equations (1)–(3) is identifiable.
+
+\subsubsection*{Proof}
+Assume that \(\lim_{t \to 0} \frac{F_{T, \theta_T}(t)}{F_{C, \theta_C}(t)} = \infty\); a similar approach can be taken if the limit equals zero. Then, from equation (6), we see that \(\lim_{t \to 0} h_{C|T, \theta} \{F_{C, \theta_C}(t) | F_{T, \theta_T}(t)\} = 0\). Following arguments similar to those in the proof of Theorem 1, condition (i) implies that \(\theta_T\) is identifiable. Using the form of \(f_{Y, \theta}(\cdot, 1)\) in equation (4), it also follows that the function \(t \to h_{C|T, \theta} \{F_{C, \theta_C}(t) | F_{T, \theta_T}(t)\}\) is identifiable.
+
+Now, for sufficiently large \(t\), \(F_{T}(t)^\theta / F_{C, \theta_C}(t)^\theta - F_{T}(t)^\theta\) is close to zero (where \(\theta_T\) has been omitted as it is identifiable). Thus, we can apply a Taylor expansion to approximate:
+\begin{align*}
+\log h_{C|T, \theta} \{F_{C, \theta_C}(t) | F_{T}(t)\} &= -\frac{\theta + 1}{\theta} \log \left( 1 + \frac{F_{T}(t)^\theta}{F_{C, \theta_C}(t)^\theta } - F_{T}(t)^\theta \right)\\
+&\approx -\frac{\theta + 1}{\theta} \sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{k} \left( {F_{T}(t)^\theta} \cdot \{ {F_{C, \theta_C}(t)^\theta - 1\}} \right)^k
+\end{align*}
+for large \(t\), which yields a polynomial in \(u = F_{T}(t)\). Therefore, for two parameter sets \((\theta, \theta_C)\) and \((\theta^*, \theta_C^*)\), we have:
+\[
+\frac{\theta + 1}{\theta} \sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{k} \left( F_{C, \theta_C}(t)^{-\theta} - 1 \right)^k u_t^{\theta k} = \frac{\theta^* + 1}{\theta^*} \sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{k} \left( F_{C, \theta_C^*}(t)^{-\theta^*} - 1 \right)^k u_t^{\theta^* k}
+\]
+for large \(t\). This equality holds only if \(\theta = \theta^*\) and \(\theta_C = \theta_C^*\).
+
+\subsection{Examples of some models}
+
+From Theorem 3, it is clear that we can create an identifiable model with the Frank Copula and any of the marginal distribution satisfying condition (i) of Theorem 1.
+
+Let's look at Gumbel Copula. The condition \(\lim_{t \to 0} \frac{F_{T, \theta_T}(t)}{F_{C, \theta_C}(t)} = 0\) or \(+\infty\) is often satisfied in parametric families. For instance, in the lognormal family, where \(\log T \sim N(\mu_T, \sigma_T^2)\) and \(\log C \sim N(\mu_C, \sigma_C^2)\), we have:
+
+\[
+\lim_{t \to 0} \frac{F_T(t)}{F_C(t)} = \lim_{t \to 0} \exp \left( -\frac{(\log t - \mu_T)^2}{2 \sigma_T^2} + \frac{(\log t - \mu_C)^2}{2 \sigma_C^2} \right).
+\]
+
+This limit approaches zero if \(\sigma_T < \sigma_C\) or if \(\sigma_T = \sigma_C\) and \(\mu_T > \mu_C\). Conversely, it approaches infinity if \(\sigma_T > \sigma_C\) or if \(\sigma_T = \sigma_C\) and \(\mu_T < \mu_C\). Thus, local identifiability is achieved near \((\mu_T, \sigma_T)\) and \((\mu_C, \sigma_C)\). 
+
+For the Clayton copula, if \(\mu_T = \mu_C\) and \(\sigma_T = \sigma_C\), we find that \( h_{T|C} \{F_T(t) | F_C(t)\} = (2 - F_C(t)^\theta)^{-(\theta+1)/\theta}\), yielding \(\lim_{t \to 0} h_{T|C} \{F_T(t) | F_C(t)\} = 2^{-(\theta+1)/\theta}\).
+
+For the lognormal density, \(\lim_{t \to 0} \frac{f_{C, \mu_{C1}, \sigma_{C1}}(t)}{f_{C, \mu_{C2}, \sigma_{C2}}(t)}\) can only be \(0\), \(1\), or \(\infty\), ensuring that \((\mu_{C1}, \sigma_{C1}) = (\mu_{C2}, \sigma_{C2})\), confirming model identifiability. 
+
+Similarly, if \(T \sim \text{Wei}(\lambda_T, \rho_T)\) and \(C \sim \text{Wei}(\lambda_C, \rho_C)\), then \(\lim_{t \to 0} \frac{F_T(t)}{F_C(t)} = 0\) if \(\rho_T > \rho_C\), \(\infty\) if \(\rho_T < \rho_C\), and \(\frac{\lambda_T}{\lambda_C}\) if \(\rho_T = \rho_C\).
+Thus, satisfying the conditions for Theorem 4.
